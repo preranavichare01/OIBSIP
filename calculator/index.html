@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #off {
+            background-color: red;
+        }
+
+        #on {
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="cal">
+        <form name="form1">
+            <div class="textg">
+                <label for="Textarea1"></label>
+                <textarea class="form-control" id="Textarea1" rows="4" name="answer" readonly></textarea>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <td><button id="open" type="button" onclick="appendToDisplay('(')">&#40;</button></td>
+                        <td><button id="close" type="button" onclick="appendToDisplay(')')">&#41;</button></td>
+                        <td><button id="addsub" type="button" onclick="toggleSign()">&#xb1;</button></td>
+                        <td><button id="c" type="button" onclick="clearDisplay()">C</button></td>
+                        <td><button id="off" type="button" onclick="toggleOnOff()">off</button></td>
+                    </tr>
+                    <tr>
+                        <td><button id="7" type="button" onclick="appendToDisplay('7')">7</button></td>
+                        <td><button id="8" type="button" onclick="appendToDisplay('8')">8</button></td>
+                        <td><button id="9" type="button" onclick="appendToDisplay('9')">9</button></td>
+                        <td><button id="mod" type="button" onclick="appendToDisplay('%')">%</button></td>
+                        <td><button id="sqrt" type="button" onclick="appendToDisplay('√')">√</button></td>
+                    </tr>
+                    <tr>
+                        <td><button id="4" type="button" onclick="appendToDisplay('4')">4</button></td>
+                        <td><button id="5" type="button" onclick="appendToDisplay('5')">5</button></td>
+                        <td><button id="6" type="button" onclick="appendToDisplay('6')">6</button></td>
+                        <td><button id="mul" type="button" onclick="appendToDisplay('*')">&#215;</button></td>
+                        <td><button id="div" type="button" onclick="appendToDisplay('/')">&#247;</button></td>
+                    </tr>
+                    <tr>
+                        <td><button id="1" type="button" onclick="appendToDisplay('1')">1</button></td>
+                        <td><button id="2" type="button" onclick="appendToDisplay('2')">2</button></td>
+                        <td><button id="3" type="button" onclick="appendToDisplay('3')">3</button></td>
+                        <td><button id="add" type="button" onclick="appendToDisplay('+')">+</button></td>
+                        <td><button id="sub" type="button" onclick="appendToDisplay('-')">-</button></td>
+                    </tr>
+                    <tr>
+                        <td><button id="point" type="button" onclick="appendToDisplay('.')">.</button></td>
+                        <td><button id="0" type="button" onclick="appendToDisplay('0')">0</button></td>
+                        <td><button id="pie" type="button" onclick="appendToDisplay('π')">&#960;</button></td>
+                        <td><button id="enter" type="button" onclick="calculateResult()">=</button></td>
+                        <td><button id="del" type="button" onclick="deleteLast()">&#9003;</button></td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        let isOn = false; // Start with the calculator off
+
+        function appendToDisplay(value) {
+            if (isOn) {
+                document.form1.answer.value += value;
+            }
+        }
+
+        function clearDisplay() {
+            if (isOn) {
+                document.form1.answer.value = '';
+            }
+        }
+
+        function deleteLast() {
+            if (isOn) {
+                let currentDisplay = document.form1.answer.value;
+                document.form1.answer.value = currentDisplay.slice(0, -1);
+            }
+        }
+
+        function calculateResult() {
+            if (isOn) {
+                let expression = document.form1.answer.value;
+                try {
+                    // Replace 'π' with Math.PI
+                    expression = expression.replace(/π/g, Math.PI);
+
+                    let result;
+                    // Check if expression starts with '√'
+                    if (expression.startsWith('√')) {
+                        let number = parseFloat(expression.substring(1));
+                        if (!isNaN(number)) {
+                            result = Math.sqrt(number);
+                        } else {
+                            throw new Error('Invalid input after square root symbol');
+                        }
+                    } else {
+                        result = eval(expression);
+                    }
+                    // Update the display with the result
+                    document.form1.answer.value = result;
+                } catch (e) {
+                    document.form1.answer.value = 'Error';
+                }
+            }
+        }
+
+        function toggleSign() {
+            if (isOn) {
+                let currentDisplay = document.form1.answer.value;
+                if (currentDisplay.startsWith('-')) {
+                    document.form1.answer.value = currentDisplay.substring(1);
+                } else {
+                    document.form1.answer.value = '-' + currentDisplay;
+                }
+            }
+        }
+
+        function toggleOnOff() {
+            isOn = !isOn;
+            clearDisplay();
+            document.getElementById('off').textContent = isOn ? 'on' : 'off';
+            document.getElementById('off').style.backgroundColor = isOn ? 'green' : 'red';
+        }
+    </script>
+</body>
+</html>

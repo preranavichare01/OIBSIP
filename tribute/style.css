@@ -1,0 +1,61 @@
+h1{
+ 
+    color: blue;
+}
+h2{
+    text-align: center;
+}
+h3{
+    text-align: center;
+    text-decoration: underline;
+}
+#heading{
+    background-color: aliceblue;
+    text-align: center;
+}
+img{
+    position: relative;
+    left: 40%;
+}
+.card{
+    position: relative;
+    left: 20%;
+    border: solid black 1px;
+    margin-bottom: 5%;
+    background-color: antiquewhite;
+   
+}
+#quotes
+{
+  background-color: aliceblue;
+ 
+}
+p{
+    margin-top: 20px;
+    padding-left: 20px;
+}
+
+
+
+
+a{
+    color: black;
+    text-decoration: underline;
+}
+#f1 {
+    text-align: center;
+    padding: 0;
+    background-color: aliceblue;
+    margin: 0; /* Ensure no margin */
+}
+
+#f1 a {
+    display: block; /* Ensure elements stack directly */
+    margin: 0; /* Remove any margin */
+    padding: 0; /* Remove any padding */
+}
+
+#f1 p {
+    margin: 0; /* Remove any margin */
+    padding: 0; /* Remove any padding */
+}
