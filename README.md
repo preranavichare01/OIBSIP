@@ -1,5 +1,3 @@
-# OIBSIP
-
 # Oasis Info Byte Internship Tasks
 
 ## Task 1: Calculator
